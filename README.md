@@ -1,3 +1,23 @@
+# Link to loom
+- https://www.loom.com/share/f3ad179615714a7ea3ebe67e8cfe841d?sid=4b2f241c-7332-4dde-82d6-0dd6293c920b
+
+# How to run the app
+- Run the db with docker: `docker compose up -d`
+- Install dependencies in a virtual env created with pyenv
+  ```bash
+  # Create a virtual environment using pyenv
+  pyenv virtualenv 3.11.5 fastapi-env
+
+  # Activate the virtual environment
+  pyenv activate fastapi-env
+
+  # Make sure you're in the project directory with requirements.txt
+  pip install -r requirements.txt
+  ```
+- Run the backend API with: `uvicorn main:app --reload`
+- Install front-end dependencies: `npm install`
+- Run the front-end `npm run dev`
+
 # FastAPI backend
 
 # API Documentation: Notes API
