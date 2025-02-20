@@ -1,0 +1,11 @@
+---
+services:
+  postgres:
+    image: postgres:15.7-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: notesuser
+      POSTGRES_DB: notesuser_dev
+      POSTGRES_PASSWORD: pazzwerdz
+    container_name: notesuser-db
