@@ -2,8 +2,18 @@ from fastapi import FastAPI, Form, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models import User, Note
 from auth import get_db, authenticate_user, oauth2_scheme, create_hardcoded_users
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 
 # Login endpoint
