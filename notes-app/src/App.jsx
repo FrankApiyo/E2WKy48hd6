@@ -65,16 +65,17 @@ export default function App() {
     setShowLogin(true);
   };
 
-  const handleSaveNote = async () => {
+  const handleSaveNote = async ({ note_id, pinned, title, content }) => {
     try {
-      const url = noteId ? `${API_URL}/notes/${noteId}` : `${API_URL}/notes`;
+      const url = noteId ? `${API_URL}/notes/${note_id}` : `${API_URL}/notes`;
       const method = noteId ? 'put' : 'post';
 
       const formData = new FormData();
-      formData.append('title', 'My First Note');
-      formData.append('content', 'This is the content of my note');
-      formData.append('pinned', 'true');
+      if (title) formData.append('title', title);
+      if (content) formData.append('content', content);
+      if (pinned !== undefined) formData.append('pinned', String(pinned));
       console.log(formData)
+      console.log(method)
 
       await axios[method](url, formData, {
         headers: {
@@ -126,7 +127,7 @@ export default function App() {
                 <Typography variant="body2">{note.content.substring(0, 100)}...</Typography>
                 <IconButton onClick={() => handleEditNote(note)}><EditIcon /></IconButton>
                 <IconButton onClick={() => handleDeleteNote(note.id)}><DeleteIcon /></IconButton>
-                <IconButton onClick={() => handleSaveNote(note.id, { pinned: !note.pinned })}>
+                <IconButton onClick={() => handleSaveNote({ title: note.title, content: note.content, note_id: note.id, pinned: !note.pinned })}>
                   <PushPinIcon color={note.pinned ? 'primary' : 'inherit'} />
                 </IconButton>
               </CardContent>
@@ -135,7 +136,7 @@ export default function App() {
         ))}
       </Grid>
 
-      <Fab color="primary" onClick={() => setShowNoteModal(true)} style={{ position: 'fixed', bottom: 20, right: 20 }}>
+      <Fab color="primary" onClick={() => { setShowNoteModal(true); setNoteId(null) }} style={{ position: 'fixed', bottom: 20, right: 20 }}>
         <AddIcon />
       </Fab>
 
@@ -143,7 +144,7 @@ export default function App() {
         <Box style={{ padding: 20, backgroundColor: 'white', margin: '10% auto', width: '50%' }}>
           <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} fullWidth />
           <TextField placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} fullWidth rows={4} />
-          <Button variant="contained" onClick={handleSaveNote}>Save Note</Button>
+          <Button variant="contained" onClick={() => handleSaveNote({ title: title, content: content, pinned: pinned, note_id: noteId })}>Save Note</Button>
         </Box>
       </Modal>
 
