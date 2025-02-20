@@ -62,13 +62,18 @@ export default function App() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken('');
+    setNotes([]);
+    setTitle('');
+    setContent('');
+    setUsername('');
+    setPassword('');
     setShowLogin(true);
   };
 
   const handleSaveNote = async ({ note_id, pinned, title, content }) => {
     try {
-      const url = noteId ? `${API_URL}/notes/${note_id}` : `${API_URL}/notes`;
-      const method = noteId ? 'put' : 'post';
+      const url = note_id ? `${API_URL}/notes/${note_id}` : `${API_URL}/notes`;
+      const method = note_id ? 'put' : 'post';
 
       const formData = new FormData();
       if (title) formData.append('title', title);
@@ -136,7 +141,7 @@ export default function App() {
         ))}
       </Grid>
 
-      <Fab color="primary" onClick={() => { setShowNoteModal(true); setNoteId(null) }} style={{ position: 'fixed', bottom: 20, right: 20 }}>
+      <Fab color="primary" onClick={() => { setTitle(''); setContent(''); setShowNoteModal(true); setNoteId(null) }} style={{ position: 'fixed', bottom: 20, right: 20 }}>
         <AddIcon />
       </Fab>
 
