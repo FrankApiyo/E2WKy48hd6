@@ -6,10 +6,10 @@
 - Install dependencies in a virtual env created with pyenv
   ```bash
   # Create a virtual environment using pyenv
-  pyenv virtualenv 3.11.5 fastapi-env
+  pyenv virtualenv 3.11.5 notes-app-env
 
   # Activate the virtual environment
-  pyenv activate fastapi-env
+  pyenv activate notes-app-env
 
   # Make sure you're in the project directory with requirements.txt
   pip install -r requirements.txt

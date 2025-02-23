@@ -38,7 +38,7 @@ def get_current_user(
 
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=401,
             detail="Invalid authentication credentials",
         )
 
